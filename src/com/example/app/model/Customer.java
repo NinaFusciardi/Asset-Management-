@@ -12,6 +12,8 @@ public class Customer {
     private int branchID;
     
     //This a new comment
+    //New comment 2
+    
     public Customer(int id, String fn, String ln, String a, int m, String e, int b) {
         
         this.customerID = id;
