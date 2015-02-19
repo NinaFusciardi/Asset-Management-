@@ -1,4 +1,4 @@
-//Class is the template for creating objects.
+//Class is the template for creating customer objects.
 package com.example.app.model;
 
 public class Customer {
@@ -11,6 +11,7 @@ public class Customer {
     private String email;
     private int branchID;
     
+    //This a new comment
     public Customer(int id, String fn, String ln, String a, int m, String e, int b) {
         
         this.customerID = id;
