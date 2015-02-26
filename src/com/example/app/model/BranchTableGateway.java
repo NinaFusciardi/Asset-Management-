@@ -58,5 +58,6 @@ public class BranchTableGateway {
         
         // return the list of Branch objects retrieved
         return branches;
+        
     }
 }

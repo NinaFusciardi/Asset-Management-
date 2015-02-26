@@ -60,3 +60,4 @@ public class Branch {
         this.openingHours = openingHours;
     }
 }
+
