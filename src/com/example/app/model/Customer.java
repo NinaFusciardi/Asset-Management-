@@ -14,7 +14,7 @@ public class Customer {
     //This a new comment
     //New comment 2
     
-    public Customer(int id, String fn, String ln, String a, int m, String e, int b) {
+    public Customer(int id, String fn, String ln, String a, int m, String e, int bid) {
         
         this.customerID = id;
         this.fName = fn;
@@ -22,11 +22,11 @@ public class Customer {
         this.address = a;
         this.mobile = m;
         this.email = e;
-        this.branchID = b;
+        this.branchID = bid;
     }
     
-    public Customer(String fn, String ln, String a, int m, String e, int b){
-        this(-1, fn, ln, a, m, e, b);
+    public Customer(String fn, String ln, String a, int m, String e, int bid){
+        this(-1, fn, ln, a, m, e, bid);
     }
     
     public int getCustomerID() {

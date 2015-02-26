@@ -19,16 +19,20 @@ public class Model {
     }
     
     //Array list for customers
-    private List<Customer> customers;
-    CustomerTableGateway gateway;
+    List<Customer> customers;
+    List<Branch> branches;
+    CustomerTableGateway customerGateway;
+    BranchTableGateway branchGateway;
     
     private Model() {
 
         try {
             Connection conn = DBConnection.getInstance();
-            this.gateway = new CustomerTableGateway(conn);
+            this.customerGateway = new CustomerTableGateway(conn);
+            this.branchGateway = new BranchTableGateway(conn);
             
-            this.customers = this.gateway.getCustomers();
+            this.customers = this.customerGateway.getCustomers();
+            this.branches = this.branchGateway.getBranches();
         } 
         catch (ClassNotFoundException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
@@ -42,7 +46,7 @@ public class Model {
     public boolean addCustomer(Customer c) {
         boolean result = false;
         try {
-            int id = this.gateway.insertCustomer(c.getFName(), c.getLName(), c.getAddress(), c.getMobile(), c.getEmail(), c.getBranchID());
+            int id = this.customerGateway.insertCustomer(c.getFName(), c.getLName(), c.getAddress(), c.getMobile(), c.getEmail(), c.getBranchID());
             if (id != -1){
                 c.setCustomerID(id);
                 this.customers.add(c);
@@ -60,7 +64,7 @@ public class Model {
         boolean removed = false;
         
         try {
-            removed = this.gateway.deleteCustomer(c.getCustomerID());
+            removed = this.customerGateway.deleteCustomer(c.getCustomerID());
             if (removed){
                 removed = this.customers.remove(c);
             }
@@ -95,7 +99,7 @@ public class Model {
         boolean updated = false;
         
         try {
-            updated = this.gateway.updateCustomer(c);
+            updated = this.customerGateway.updateCustomer(c);
         }
         catch (SQLException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,5 +111,27 @@ public class Model {
     //Viewing all customers in the database
     public List<Customer> getCustomers() {
         return this.customers;
+    }
+    
+    public List<Branch> getBranches() {
+        return this.branches;
+    }
+
+    Branch findBranchById(int id) {
+        Branch b = null;
+        int i = 0;
+        boolean found = false;
+        while (i < this.branches.size() && !found) {
+            b = this.branches.get(i);
+            if (b.getBranchID() == id) {
+                found = true;
+            } else {
+                i++;
+            }
+        }
+        if (!found) {
+            b = null;
+        }
+        return b;
     }
 }     

@@ -26,7 +26,7 @@ public class CustomerTableGateway {
     }
     
     //Adding a customer
-    public int insertCustomer(String fn, String ln, String a, int m, String e, int b) throws SQLException {
+    public int insertCustomer(String fn, String ln, String a, int m, String e, int bid) throws SQLException {
         String query;       //the SQL query to execute
         PreparedStatement stmt;
         int numRowsAffected;
@@ -49,7 +49,7 @@ public class CustomerTableGateway {
         stmt.setString(3, a);
         stmt.setInt(4, m);
         stmt.setString(5, e);
-        stmt.setInt(6, b);
+        stmt.setInt(6, bid);
         
         //execute the query and make sure that one and only one row was inserted into the database
         numRowsAffected = stmt.executeUpdate();
