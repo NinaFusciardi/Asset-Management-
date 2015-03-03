@@ -20,7 +20,11 @@ public class DemoApp {
             System.out.println("2. Delete existing Customer");
             System.out.println("3. Edit a Customer");
             System.out.println("4. View all Customers");
-            System.out.println("5. Exit");
+            System.out.println("5. Create new Branch");
+            System.out.println("6. Delete existing Branch");
+            System.out.println("7. Edit a Branch");
+            System.out.println("8. View all Branches");
+            System.out.println("9. Exit");
             System.out.println();
         
             //Asking user for input
@@ -50,10 +54,30 @@ public class DemoApp {
                     System.out.println("Viewing customer");
                     viewCustomers(model);
                     break;
+                }    
+                case 5: {
+                    System.out.println("Creating branch");
+                    createBranch(keyboard, model);
+                    break;
+                }
+                case 6: {
+                    System.out.println("Deleting branch");
+                    deleteBranch(keyboard, model);
+                    break;
+                }
+                case 7: {
+                    System.out.println("Editing branch");
+                    editBranch(keyboard, model);
+                    break;
+                }
+                case 8: {
+                    System.out.println("Viewing branch");
+                    viewBranches(model);
+                    break;
                 }
             }
         }
-        while (opt != 5); //The do loop runs until the user input 5
+        while (opt != 9); //The do loop runs until the user input 9
         System.out.println("Goodbye");
     }
        
@@ -192,8 +216,34 @@ public class DemoApp {
         System.out.println();
     }
     
+    private static void viewBranches(Model mdl){
+        List<Branch> branches = mdl.getBranches();
+        System.out.println();
+        if (branches.isEmpty()){
+            System.out.println("There are no branches in the database");
+        }
+        else {
+            System.out.printf("%5s %20s %20s %20s %20s\n", "branchID", "address", "mobile", "branchManager", "openingHours");
+        }
+            for (Branch b : branches){
+                System.out.printf("%10d %20s %20s %20s %20s8\n",
+                    b.getBranchID(),
+                    b.getAddress(),
+                    b.getMobile(),
+                    b.getBranchManager(),
+                    b.getOpeningHours());
+            }
+            System.out.println();
+        }
+       
+    
     private static String getString(Scanner keyboard, String prompt) {
         System.out.print(prompt);
         return keyboard.nextLine();
     }
-}
+    
+    
+    }
+
+
+
