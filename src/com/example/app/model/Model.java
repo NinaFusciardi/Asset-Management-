@@ -59,6 +59,23 @@ public class Model {
         return result;
     }
     
+    public boolean addBranch(Branch b){
+        boolean result = false;
+        try {
+            int id = this.branchGateway.insertBranch(b.getBranchID(), b.getAddress(), b.getMobile(), b.getBranchManager(), b.getOpeningHours());
+            if (id != -1){
+                b.setBranchID(id);
+                this.branches.add(b);
+                result = true;
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+        
+    }
+    
     //Deleting a customer off the database
     public boolean removeCustomer(Customer c) {
         boolean removed = false;
@@ -94,6 +111,24 @@ public class Model {
         return c;
     }
     
+    Branch findBranchById(int id) {
+        Branch b = null;
+        int i = 0;
+        boolean found = false;
+        while (i < this.branches.size() && !found) {
+            b = this.branches.get(i);
+            if (b.getBranchID() == id) {
+                found = true;
+            } else {
+                i++;
+            }
+        }
+        if (!found) {
+            b = null;
+        }
+        return b;
+    }
+    
     //Editing a customer on the database
     boolean updateCustomer(Customer c){
         boolean updated = false;
@@ -117,21 +152,6 @@ public class Model {
         return this.branches;
     }
 
-    Branch findBranchById(int id) {
-        Branch b = null;
-        int i = 0;
-        boolean found = false;
-        while (i < this.branches.size() && !found) {
-            b = this.branches.get(i);
-            if (b.getBranchID() == id) {
-                found = true;
-            } else {
-                i++;
-            }
-        }
-        if (!found) {
-            b = null;
-        }
-        return b;
-    }
+    
 }     
+

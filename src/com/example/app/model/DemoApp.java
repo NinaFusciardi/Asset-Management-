@@ -94,6 +94,18 @@ public class DemoApp {
             }
     }
     
+    private static void createBranch(Scanner keyboard, Model mdl){
+        Branch b = readBranch(keyboard);
+            if (mdl.addBranch(b)){
+                System.out.println("Branch added to database. ");
+                System.out.println("");
+            }
+            else {
+                System.out.println("Branch not added to database");
+                System.out.println("");
+            }
+    }
+    
     private static Customer readCustomer(Scanner keyb) {
         int customerID;
         String fName, lName, address, email;
@@ -115,6 +127,28 @@ public class DemoApp {
           
         return c;
     }
+     
+    private static Branch readBranch(Scanner keyb) {
+        int branchID;
+        String address, branchManager, openingHours;
+        int mobile;
+        String line;
+        
+        line = getString(keyb, "Enter branchID: ");
+        branchID = Integer.parseInt(line);
+        address = getString(keyb, "Enter address: ");
+        line = getString(keyb, "Enter mobile: ");
+        mobile = Integer.parseInt(line);
+        branchManager = getString(keyb, "Enter name: ");
+        openingHours = getString(keyb, "Enter hours: ");
+        
+        Branch b = 
+                new Branch(
+                        branchID, address, mobile, branchManager, openingHours);
+          
+        return b;
+    }
+    
     
     //Methods for deleting a customer
     private static void deleteCustomer(Scanner keyboard, Model model) {
@@ -223,8 +257,7 @@ public class DemoApp {
             System.out.println("There are no branches in the database");
         }
         else {
-            System.out.printf("%5s %20s %20s %20s %20s\n", "branchID", "address", "mobile", "branchManager", "openingHours");
-        }
+            System.out.printf("%10s %20s %20s %20s %20s\n", "branchID", "address", "mobile", "branchManager", "openingHours");
             for (Branch b : branches){
                 System.out.printf("%10d %20s %20s %20s %20s8\n",
                     b.getBranchID(),
@@ -233,17 +266,16 @@ public class DemoApp {
                     b.getBranchManager(),
                     b.getOpeningHours());
             }
-            System.out.println();
         }
+        System.out.println();
+    }
        
-    
     private static String getString(Scanner keyboard, String prompt) {
         System.out.print(prompt);
         return keyboard.nextLine();
     }
-    
-    
-    }
+      
+}
 
 
 
