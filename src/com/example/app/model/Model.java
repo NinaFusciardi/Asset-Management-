@@ -92,6 +92,23 @@ public class Model {
         
         return removed;
     }
+    
+     //Deleting a customer off the database
+    public boolean removeBranch(Branch b) {
+        boolean removed = false;
+        
+        try {
+            removed = this.branchGateway.deleteBranch(b.getBranchID());
+            if (removed){
+                removed = this.branches.remove(b);
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return removed;
+    }
 
     Customer findCustomerByCustomerID(int customerID) {
         Customer c = null;
@@ -135,6 +152,20 @@ public class Model {
         
         try {
             updated = this.customerGateway.updateCustomer(c);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return updated;
+    }
+    
+    //Editing a customer on the database
+    boolean updateBranch(Branch b){
+        boolean updated = false;
+        
+        try {
+            updated = this.branchGateway.updateBranch(b);
         }
         catch (SQLException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);

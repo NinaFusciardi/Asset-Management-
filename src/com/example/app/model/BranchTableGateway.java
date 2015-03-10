@@ -61,6 +61,58 @@ public class BranchTableGateway {
         return branchID;
     }
     
+    //Deleting a customer
+    public boolean deleteBranch(int id) throws SQLException{
+        String query;       //the SQL query to execute
+        PreparedStatement stmt;
+        int numRowsAffected;
+        
+        query = "DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_BRANCHID + " = ? " ;
+        
+        // create a PreparedStatement object to execute the query and insert the id into the query
+        stmt = mConnection.prepareStatement(query);
+        stmt.setInt(1, id);
+        
+        //execute the query
+        numRowsAffected = stmt.executeUpdate();
+        
+        //return the true if one and only one row was deleted from the database
+        return (numRowsAffected == 1);
+        
+    }
+    
+    //Updating a customer
+    boolean updateBranch(Branch b) throws SQLException {
+        String query;       //the SQL query to execute
+        PreparedStatement stmt;
+        int numRowsAffected;
+        
+        //the required SQL INSERT statement with place holders for the values to be inserted into the database
+        query = "UPDATE " + TABLE_NAME + " SET " +
+                COLUMN_BRANCHID + " = ?, " +
+                COLUMN_ADDRESS + " = ?, " +
+                COLUMN_MOBILE + " = ?, " +
+                COLUMN_BRANCHMANAGER + " = ?, " +
+                COLUMN_OPENINGHOURS + " = ? " +
+                "WHERE " + COLUMN_BRANCHID + " = ?";
+        
+        // create a PreparedStatement object to execute the query and insert the values into the query
+        stmt = mConnection.prepareStatement(query);
+        stmt.setInt(1, b.getBranchID());
+        stmt.setString(2, b.getAddress());
+        stmt.setInt(3, b.getMobile());
+        stmt.setString(4, b.getBranchManager());
+        stmt.setString(5, b.getOpeningHours());
+      
+        
+        //execute the query
+        numRowsAffected = stmt.executeUpdate();
+        
+        // return the true if one and only one row was updated in the database
+        return numRowsAffected == 1;
+           
+    }
+    
     public List<Branch> getBranches() throws SQLException {
         String query;                     // the SQL query to execute
         Statement stmt;                  // the java.sql.Statement object used to execute the SQL query

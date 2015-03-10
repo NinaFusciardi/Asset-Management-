@@ -20,6 +20,7 @@ public class DemoApp {
             System.out.println("2. Delete existing Customer");
             System.out.println("3. Edit a Customer");
             System.out.println("4. View all Customers");
+            System.out.println();
             System.out.println("5. Create new Branch");
             System.out.println("6. Delete existing Branch");
             System.out.println("7. Edit a Branch");
@@ -170,6 +171,26 @@ public class DemoApp {
         }
     }  
     
+    //Methods for deleting a customer
+    private static void deleteBranch(Scanner keyboard, Model model) {
+        System.out.print("Enter the branch ID of the branch to delete:");
+        int branchID = Integer.parseInt(keyboard.nextLine());
+        Branch b;
+
+        b = model.findBranchById(branchID);
+        if (b != null) {
+            if (model.removeBranch(b)) {
+                System.out.println("Branch deleted");
+            }
+            else {
+                System.out.println("Branch not deleted");
+            }
+        }
+        else {
+            System.out.println("Branch not found");
+        }
+    }  
+    
     //Methods for editing a customer
     private static void editCustomer(Scanner kb, Model m) {
         System.out.print("Enter the customer ID of the customer to edit:");
@@ -225,6 +246,59 @@ public class DemoApp {
             c.setBranchID(branchID);
         }
        
+    }
+    
+    //Methods for editing a customer
+    private static void editBranch(Scanner kb, Model m) {
+        System.out.print("Enter the branch ID of the branch to edit:");
+        int branchID = Integer.parseInt(kb.nextLine());
+        Branch b;
+
+        b = m.findBranchById(branchID);
+        if (b != null) {
+            editBranchDetails(kb, b);
+            if (m.updateBranch(b)) {
+                System.out.println("Branch updated");
+            }
+            else {
+                System.out.println("Branch not updated");
+            }
+        }
+        else {
+            System.out.println("Branch not found");
+        }
+    }
+
+    private static void editBranchDetails(Scanner keyb, Branch b) {
+        int branchID;
+        String address, branchManager, openingHours;
+        int mobile;
+        String line1 , line2;
+        
+        line1 = getString(keyb, "Enter branchID[" + b.getBranchID() + "]:");
+        address = getString(keyb, "Enter address[" + b.getAddress() + "]:");
+        line2 = getString(keyb, "Enter mobile[" + b.getMobile() + "]:");
+        branchManager = getString(keyb, "Enter branch manager[" + b.getBranchManager() + "]:");
+        
+        openingHours = getString(keyb, "Enter opening hours[" + b.getOpeningHours() + "]:");
+        
+        if (line1.length() != 0){
+            branchID = Integer.parseInt(line1);
+            b.setBranchID(branchID);
+        }
+        if (address.length() != 0){
+            b.setAddress(address);
+        }
+        if (line2.length() != 0){
+            mobile = Integer.parseInt(line2);
+            b.setMobile(mobile);
+        }
+        if (branchManager.length() != 0){
+            b.setBranchManager(branchManager);
+        }
+        if (openingHours.length() != 0){
+            b.setOpeningHours(openingHours);
+        }
     }
     
     //Methods for viewing a customer
