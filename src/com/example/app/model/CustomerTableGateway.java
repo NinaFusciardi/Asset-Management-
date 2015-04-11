@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CustomerTableGateway {
     
-    private static final String TABLE_NAME = "customer";
+    private static final String TABLE_NAME = "customer2";
     private static final String COLUMN_CUSTOMERID = "customerID";
     private static final String COLUMN_FNAME = "fName";
     private static final String COLUMN_LNAME = "lName";

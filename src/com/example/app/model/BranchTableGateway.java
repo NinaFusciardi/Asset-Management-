@@ -10,9 +10,9 @@ import java.util.List;
 
 public class BranchTableGateway {
     
-    private Connection mConnection;
+    private final Connection mConnection;
     
-    private static final String TABLE_NAME = "branch";
+    private static final String TABLE_NAME = "branch2";
     private static final String COLUMN_BRANCHID = "branchID";
     private static final String COLUMN_ADDRESS = "address";
     private static final String COLUMN_MOBILE = "mobile";
@@ -24,7 +24,7 @@ public class BranchTableGateway {
     }
     
     //Adding a branch
-    public int insertBranch(int id, String a, int m, String bm, String hrs) throws SQLException {
+    public int insertBranch(String a, int m, String bm, String hrs) throws SQLException {  
         String query;       //the SQL query to execute
         PreparedStatement stmt;
         int numRowsAffected;
@@ -32,20 +32,18 @@ public class BranchTableGateway {
         
         //the required SQL INSERT statement with place holders for the values to be inserted into the database
         query = "INSERT INTO " + TABLE_NAME + " (" +
-                COLUMN_BRANCHID + ", " +
                 COLUMN_ADDRESS + ", " +
                 COLUMN_MOBILE + ", " +
                 COLUMN_BRANCHMANAGER + ", " +
                 COLUMN_OPENINGHOURS +
-                ") VALUES (?, ?, ?, ?, ?)";
+                ") VALUES (?, ?, ?, ?)";
         
         // create a PreparedStatement object to execute the query and insert the values into the query
         stmt = mConnection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        stmt.setInt(1, id);
-        stmt.setString(2, a);
-        stmt.setInt(3, m);
-        stmt.setString(4, bm);
-        stmt.setString(5, hrs);
+        stmt.setString(1, a);
+        stmt.setInt(2, m);
+        stmt.setString(3, bm);
+        stmt.setString(4, hrs);
         
         //execute the query and make sure that one and only one row was inserted into the database
         numRowsAffected = stmt.executeUpdate();
@@ -88,8 +86,7 @@ public class BranchTableGateway {
         int numRowsAffected;
         
         //the required SQL INSERT statement with place holders for the values to be inserted into the database
-        query = "UPDATE " + TABLE_NAME + " SET " +
-                COLUMN_BRANCHID + " = ?, " +
+        query = "UPDATE" + TABLE_NAME + "SET " +
                 COLUMN_ADDRESS + " = ?, " +
                 COLUMN_MOBILE + " = ?, " +
                 COLUMN_BRANCHMANAGER + " = ?, " +
@@ -98,11 +95,11 @@ public class BranchTableGateway {
         
         // create a PreparedStatement object to execute the query and insert the values into the query
         stmt = mConnection.prepareStatement(query);
-        stmt.setInt(1, b.getBranchID());
-        stmt.setString(2, b.getAddress());
-        stmt.setInt(3, b.getMobile());
-        stmt.setString(4, b.getBranchManager());
-        stmt.setString(5, b.getOpeningHours());
+        stmt.setString(1, b.getAddress());
+        stmt.setInt(2, b.getMobile());
+        stmt.setString(3, b.getBranchManager());
+        stmt.setString(4, b.getOpeningHours());
+        stmt.setInt(5, b.getBranchID());
       
         
         //execute the query
