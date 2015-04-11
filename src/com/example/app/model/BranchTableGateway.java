@@ -87,7 +87,7 @@ public class BranchTableGateway {
         int numRowsAffected;
         
         //the required SQL INSERT statement with place holders for the values to be inserted into the database
-        query = "UPDATE" + TABLE_NAME + "SET " +
+        query = "UPDATE " + TABLE_NAME + " SET " +
                 COLUMN_ADDRESS + " = ?, " +
                 COLUMN_MOBILE + " = ?, " +
                 COLUMN_BRANCHMANAGER + " = ?, " +
@@ -146,7 +146,6 @@ public class BranchTableGateway {
         
         // return the list of Branch objects retrieved
         return branches;
-        
-        
+  
     }
 }

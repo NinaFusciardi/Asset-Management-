@@ -49,8 +49,12 @@ public class CustomerTableGateway {
         stmt.setString(3, a);
         stmt.setInt(4, m);
         stmt.setString(5, e);
-        stmt.setInt(6, bid);
-        
+        if (bid == -1) {
+            stmt.setNull(6, java.sql.Types.INTEGER);
+        }
+        else {
+            stmt.setInt(6, bid);
+        }
         //execute the query and make sure that one and only one row was inserted into the database
         numRowsAffected = stmt.executeUpdate();
         if(numRowsAffected == 1) {
@@ -159,5 +163,4 @@ public class CustomerTableGateway {
         return customers;
     }   
    
-}   
-
+}

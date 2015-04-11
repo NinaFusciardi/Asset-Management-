@@ -194,11 +194,5 @@ public class Model {
         }
         return b;
     }
-    
-  
-    
-    
-    
 
 }     
-
