@@ -404,6 +404,7 @@ public class DemoApp {
             System.out.println("Branch Manager  : " + b.getBranchManager());
             System.out.println("Opening Hours   : " + b.getOpeningHours());
         
+            
             List<Customer> customerList = model.getCustomersByBranchID(b.getBranchID());
             System.out.println();
             if(customerList.isEmpty()){

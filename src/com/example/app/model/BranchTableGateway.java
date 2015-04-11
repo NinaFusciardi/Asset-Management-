@@ -79,6 +79,7 @@ public class BranchTableGateway {
         
     }
     
+    
     //Updating a customer
     boolean updateBranch(Branch b) throws SQLException {
         String query;       //the SQL query to execute
